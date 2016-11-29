@@ -71,12 +71,16 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\Programming\Delvelopment Kits or tools\DX11\Microsoft DirectX SDK (June 2010)\Include;D:\Programming\Delvelopment Kits or tools\DX11\Common;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Programming\Delvelopment Kits or tools\DX11\Microsoft DirectX SDK (June 2010)\Lib\x86;D:\Programming\Delvelopment Kits or tools\DX11\Common;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>D:\Programming\Delvelopment Kits or tools\DX11\Microsoft DirectX SDK (June 2010)\Include;D:\Programming\Delvelopment Kits or tools\DX11\Common;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Programming\Delvelopment Kits or tools\DX11\Microsoft DirectX SDK (June 2010)\Lib\x86;D:\Programming\Delvelopment Kits or tools\DX11\Common;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -93,7 +97,17 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d11.lib;d3dx11d.lib;D3DCompiler.lib;Effects11d.lib;dxgi.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <FxCompile>
+      <EntryPointName>PS</EntryPointName>
+    </FxCompile>
+    <FxCompile>
+      <ShaderType>Effect</ShaderType>
+    </FxCompile>
+    <FxCompile>
+      <ShaderModel>5.0</ShaderModel>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -125,7 +139,17 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>d3d11.lib;d3dx11d.lib;D3DCompiler.lib;Effects11d.lib;dxgi.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <FxCompile>
+      <EntryPointName>PS</EntryPointName>
+    </FxCompile>
+    <FxCompile>
+      <ShaderType>Effect</ShaderType>
+    </FxCompile>
+    <FxCompile>
+      <ShaderModel>5.0</ShaderModel>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -146,6 +170,41 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\Camera.cpp" />
+    <ClCompile Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\d3dApp.cpp" />
+    <ClCompile Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\d3dUtil.cpp" />
+    <ClCompile Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\dxerr.cpp" />
+    <ClCompile Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\GameTimer.cpp" />
+    <ClCompile Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\GeometryGenerator.cpp" />
+    <ClCompile Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\LightHelper.cpp" />
+    <ClCompile Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\MathHelper.cpp" />
+    <ClCompile Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\TextureMgr.cpp" />
+    <ClCompile Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\Waves.cpp" />
+    <ClCompile Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\xnacollision.cpp" />
+    <ClCompile Include="Init Direct3D.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\Camera.h" />
+    <ClInclude Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\d3dApp.h" />
+    <ClInclude Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\d3dUtil.h" />
+    <ClInclude Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\d3dx11effect.h" />
+    <ClInclude Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\d3dxGlobal.h" />
+    <ClInclude Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\dxerr.h" />
+    <ClInclude Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\GameTimer.h" />
+    <ClInclude Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\GeometryGenerator.h" />
+    <ClInclude Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\LightHelper.h" />
+    <ClInclude Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\MathHelper.h" />
+    <ClInclude Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\TextureMgr.h" />
+    <ClInclude Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\Waves.h" />
+    <ClInclude Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\xnacollision.h" />
+    <ClInclude Include="Init Direct3D.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="VertexColor.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\Effects11.lib" />
+    <Library Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\Effects11d.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
