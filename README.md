@@ -1,2 +1,2 @@
-# DX3D11_GridRendering
+# DX3D11_TerrainRendering
 
