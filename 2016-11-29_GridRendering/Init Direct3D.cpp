@@ -53,7 +53,7 @@ void InitDirect3DApp::OnResize()
 	D3DApp::OnResize();
 
 	// The window resized, so update the aspect ratio and recompute the projection matrix.
-	XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f*MathHelper::Pi, AspectRatio(), 1.0f, 1000.0f);
+	XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * MathHelper::Pi, AspectRatio(), 1.0f, 1000.0f);
 	XMStoreFloat4x4(&mProj, P);
 }
 
@@ -62,7 +62,7 @@ void InitDirect3DApp::UpdateScene(float dt)
 	XMVECTOR pos = XMVectorSet(5, 3, -10.f, 1.0f);
 	XMVECTOR target = XMVectorZero();
 	XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-
+	
 	XMMATRIX V = XMMatrixLookAtLH(pos, target, up);
 	XMStoreFloat4x4(&mView, V);
 }
@@ -77,9 +77,9 @@ void InitDirect3DApp::DrawScene()
 
 	// 버텍스 입력 조립 상태
 	md3dImmediateContext->IASetInputLayout(mInputLayout);
+
 	// 위상구조
-	md3dImmediateContext->IASetPrimitiveTopology(
-		D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	md3dImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	UINT stride = sizeof(Vertex);
 	UINT offset = 0;
@@ -102,7 +102,7 @@ void InitDirect3DApp::DrawScene()
 	{
 		mTech->GetPassByIndex(p)->Apply(0, md3dImmediateContext);
 
-		// TODO: 인덱스 갯수 렌더링( 버텍스 8, 인덱스 36)
+		// TODO: Index Rendering(인덱스 36)
 	}
 
 	HR(mSwapChain->Present(0, 0));
@@ -113,7 +113,6 @@ void InitDirect3DApp::BuildGeometryBuffers()
 	// TODO: Create vertex buffer
 
 	// TODO: Create the index buffer
-
 }
 
 void InitDirect3DApp::BuildFX()
