@@ -206,6 +206,7 @@
     <ClCompile Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\Waves.cpp" />
     <ClCompile Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\xnacollision.cpp" />
     <ClCompile Include="Init Direct3D.cpp" />
+    <ClCompile Include="TerrainClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\Camera.h" />
@@ -222,6 +223,7 @@
     <ClInclude Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\Waves.h" />
     <ClInclude Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\xnacollision.h" />
     <ClInclude Include="Init Direct3D.h" />
+    <ClInclude Include="TerrainClass.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexColor.fx" />

@@ -54,6 +54,9 @@
     <ClCompile Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\xnacollision.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="TerrainClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Init Direct3D.h">
@@ -97,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Delvelopment Kits or tools\DX11\Common\xnacollision.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainClass.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
