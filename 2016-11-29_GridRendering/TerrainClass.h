@@ -15,7 +15,7 @@ private:
 
 public:
 	TerrainClass();
-	TerrainClass(const TerrainClass&);
+	TerrainClass(const TerrainClass &);
 	~TerrainClass();
 
 	bool Initialze(ID3D11Device *);
