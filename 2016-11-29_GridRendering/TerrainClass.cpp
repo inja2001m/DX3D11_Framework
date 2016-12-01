@@ -14,7 +14,7 @@ TerrainClass::~TerrainClass()
 {
 }
 
-bool TerrainClass::Initialze(ID3D11Device *device)
+bool TerrainClass::Initialize(ID3D11Device *device)
 {
 	bool result;
 

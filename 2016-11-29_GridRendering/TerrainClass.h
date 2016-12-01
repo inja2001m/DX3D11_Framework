@@ -18,7 +18,7 @@ public:
 	TerrainClass(const TerrainClass &);
 	~TerrainClass();
 
-	bool Initialze(ID3D11Device *);
+	bool Initialize(ID3D11Device *);
 	void Shutdonw();
 	void Render(ID3D11DeviceContext *);
 
