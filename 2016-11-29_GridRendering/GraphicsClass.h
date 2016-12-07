@@ -1,7 +1,10 @@
 #ifndef _GRAPHICSCLASS_H_
 #define _GRAPHICSCLASS_H_
 
-#include <Windows.h>
+#include "d3dclass.h"
+#include "CameraClass.h"
+#include "ModelClass.h"
+#include "ColorshaderClass.h"
 
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
@@ -21,6 +24,12 @@ public:
 
 private:
 	bool Render();
+
+private:
+	D3DClass *m_Direct3D;
+	CameraClass *m_Camera;
+	ModelClass *m_Model;
+	ColorShaderClass *m_ColorShader;
 };
 
 #endif
