@@ -23,7 +23,7 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
 	IDXGIAdapter *adapter;
 	IDXGIOutput *adapterOutput;
 	unsigned int numModes, i, numerator, denominator;
-	unsigned int stringLength;
+	unsigned long long stringLength;
 	DXGI_MODE_DESC *displayModeList;
 	DXGI_ADAPTER_DESC adapterDesc;
 	int error;
