@@ -50,7 +50,7 @@ void CameraClass::Render()
 	XMMATRIX rotationMatrix;
 
 	up.x = 0.0f;
-	up.y = 0.0f;
+	up.y = 1.0f;
 	up.z = 0.0f;
 
 	upVec = XMLoadFloat3(&up);
