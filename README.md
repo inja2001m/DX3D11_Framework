@@ -1,5 +1,4 @@
-# DX3D11_TerrainRendering
+# DX3D11_Framework
 
 ##Origin
-http://www.rastertek.com/tutdx11s2.html							
-http://www.rastertek.com/tutdx11s2ter.html
+http://www.rastertek.com/tutdx11s2.html						
