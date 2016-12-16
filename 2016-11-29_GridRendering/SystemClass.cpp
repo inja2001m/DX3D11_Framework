@@ -6,9 +6,13 @@ SystemClass::SystemClass()
 	m_Graphics = NULL;
 }
 
-SystemClass::SystemClass(const SystemClass &other){}
+SystemClass::SystemClass(const SystemClass &other)
+{
+}
 
-SystemClass::~SystemClass(){}
+SystemClass::~SystemClass()
+{
+}
 
 bool SystemClass::Initialize()
 {
