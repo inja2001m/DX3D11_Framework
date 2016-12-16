@@ -3,10 +3,16 @@
 GraphicsClass::GraphicsClass()
 {
 	m_Direct3D = 0;
-	 m_Camera = 0;
-	 m_Model = 0;
-	 m_ColorShader = 0;
+	m_Camera = 0;
+	m_Model = 0;
 
+#ifdef _COLOR_SHADER_MODE_
+	m_ColorShader = 0;
+#endif
+
+#ifdef _TEXTURE_SHADER_MODE_
+	m_TextureShader = 0;
+#endif
 }
 
 GraphicsClass::GraphicsClass(const GraphicsClass &)
@@ -52,7 +58,7 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	if (!m_Model)
 		return false;
 
-	result = m_Model->Initialize(m_Direct3D->GetDevice());
+	result = m_Model->Initialize(m_Direct3D->GetDevice(), m_Direct3D->GetDeviceContext(), "data/stone01.tga");
 
 	if (!result)
 	{
@@ -60,6 +66,7 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 		return false;
 	}
 
+#ifdef _COLOR_SHADER_MODE_
 	m_ColorShader = new ColorShaderClass;
 
 	if (!m_ColorShader)
@@ -72,18 +79,45 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 		MessageBox(hwnd, L"Could not initialize the color shader object.", L"Error", MB_OK);
 		return false;
 	}
+#endif
+
+#ifdef _TEXTURE_SHADER_MODE_
+	m_TextureShader = new TextureShaderClass;
+
+	if (!m_TextureShader)
+		return false;
+
+	result = m_TextureShader->Initialize(m_Direct3D->GetDevice(), hwnd);
+
+	if (!result)
+	{
+		MessageBox(hwnd, L"Could not initialize the texture shader object.", L"Error", MB_OK);
+		return false;
+	}
+#endif
 
 	return true;
 }
 
 void GraphicsClass::Shutdown()
 {
+#ifdef _COLOR_SHADER_MODE_
 	if (m_ColorShader)
 	{
 		m_ColorShader->Shutdown();
 		delete m_ColorShader;
 		m_ColorShader = NULL;
 	}
+#endif
+
+#ifdef _TEXTURE_SHADER_MODE_
+	if (m_TextureShader)
+	{
+		m_TextureShader->Shutdown();
+		delete m_TextureShader;
+		m_TextureShader = NULL;
+	}
+#endif
 
 	if (m_Model)
 	{
@@ -113,6 +147,7 @@ bool GraphicsClass::Frame()
 	bool result;
 
 	result = Render();
+
 	if (!result)
 		return false;
 
@@ -135,15 +170,26 @@ bool GraphicsClass::Render()
 	m_Camera->GetViewMatrix(viewMatrix);
 	m_Direct3D->GetProjectionMatrix(projectionMatrix);
 
-	// Put the model verex and index buffer son the graphics pipeline to prepare them for drawing.
+	// Put the model vertex and index buffer son the graphics pipeline to prepare them for drawing.
 	m_Model->Render(m_Direct3D->GetDeviceContext());
 
-	// Render the model using them color shader.
+	// Render the model using the texture shader.
+#ifdef _COLOR_SHADER_MODE_
 	result = m_ColorShader->Render(m_Direct3D->GetDeviceContext(),
 		m_Model->GetIndexCount(),
 		worldMatrix,
 		viewMatrix,
 		projectionMatrix);
+#endif
+
+#ifdef _TEXTURE_SHADER_MODE_
+	result = m_TextureShader->Render(m_Direct3D->GetDeviceContext(),
+		m_Model->GetIndexCount(), 
+		worldMatrix, 
+		viewMatrix, 
+		projectionMatrix,
+		m_Model->GetTexture());
+#endif
 
 	if (!result)
 		return false;

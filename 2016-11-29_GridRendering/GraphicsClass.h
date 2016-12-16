@@ -1,10 +1,17 @@
 #ifndef _GRAPHICSCLASS_H_
 #define _GRAPHICSCLASS_H_
 
-#include "d3dclass.h"
+#include "D3DClass.h"
 #include "CameraClass.h"
 #include "ModelClass.h"
+
+#ifdef _COLOR_SHADER_MODE_
 #include "ColorshaderClass.h"
+#endif
+
+#ifdef _TEXTURE_SHADER_MODE_
+#include "TextureShaderClass.h"
+#endif
 
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
@@ -29,7 +36,14 @@ private:
 	D3DClass *m_Direct3D;
 	CameraClass *m_Camera;
 	ModelClass *m_Model;
+
+#ifdef _COLOR_SHADER_MODE_
 	ColorShaderClass *m_ColorShader;
+#endif
+
+#ifdef _TEXTURE_SHADER_MODE_
+	TextureShaderClass *m_TextureShader;
+#endif
 };
 
 #endif
