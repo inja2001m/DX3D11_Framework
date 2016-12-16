@@ -2,7 +2,7 @@
 #define _MODELCLASS_H_
 
 // Mode select define variable -> | _COLOR_SHADER_MODE_ | _TEXTURE_SHADER_MODE_ |
-#define _TEXTURE_SHADER_MODE_
+#define _COLOR_SHADER_MODE_
 
 #include <d3d11.h>
 #include <DirectXMath.h>
