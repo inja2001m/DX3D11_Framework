@@ -2,15 +2,19 @@
 
 ColorShaderClass::ColorShaderClass()
 {
-	m_vertexShader= 0;
-	m_pixelShader= 0;
-	m_layout= 0;
-	m_matrixBuffer= 0;
+	m_vertexShader = 0;
+	m_pixelShader = 0;
+	m_layout = 0;
+	m_matrixBuffer = 0;
 }
 
-ColorShaderClass::ColorShaderClass(const ColorShaderClass &other){}
+ColorShaderClass::ColorShaderClass(const ColorShaderClass &other)
+{
+}
 
-ColorShaderClass::~ColorShaderClass(){}
+ColorShaderClass::~ColorShaderClass()
+{
+}
 
 bool ColorShaderClass::Initialize(ID3D11Device *device, HWND hwnd)
 {
@@ -28,7 +32,7 @@ bool ColorShaderClass::Initialize(ID3D11Device *device, HWND hwnd)
 void ColorShaderClass::Shutdown()
 {
 	// Shutdown the vertex and pixel shaders as well as the related object.
-	//ShutdownShader();
+	ShutdownShader();
 
 	return;
 }
@@ -263,7 +267,11 @@ bool ColorShaderClass::SetShaderParameters(ID3D11DeviceContext *deviceContext,
 	projectionMatirx = XMMatrixTranspose(projectionMatirx);
 
 	// Lock the constant buffer so it can be written to.
-	result = deviceContext->Map(m_matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	result = deviceContext->Map(m_matrixBuffer, 
+		0, 
+		D3D11_MAP_WRITE_DISCARD, 
+		0, 
+		&mappedResource);
 
 	if (FAILED(result))
 		return false;
