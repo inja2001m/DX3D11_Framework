@@ -4,6 +4,10 @@ ModelClass::ModelClass()
 {
 	m_vertexBuffer = 0;
 	m_indexBuffer = 0;
+
+#ifdef _TEXTURE_SHADER_MODE_
+	m_Texture = 0;
+#endif
 }
 
 ModelClass::ModelClass(const ModelClass &)
@@ -14,21 +18,32 @@ ModelClass::~ModelClass()
 {
 }
 
-bool ModelClass::Initialize(ID3D11Device *device)
+bool ModelClass::Initialize(ID3D11Device *device, ID3D11DeviceContext *deviceContext, char *textureFilename)
 {
 	bool result;
 
 	// Initailize the vertex and index buffers.
 	result = InitializeBuffers(device);
 
-	if (FAILED(result))
+	if (!result)
 		return false;
+
+#ifdef _TEXTURE_SHADER_MODE_
+	result = LoadTexture(device, deviceContext, textureFilename);
+
+	if (!result)
+		return false;
+#endif
 
 	return true;
 }
 
 void ModelClass::Shutdown()
 {
+#ifdef _TEXTURE_SHADER_MODE_
+	ReleaseTexture();
+#endif
+
 	ShutdownBuffers();
 
 	return;
@@ -45,6 +60,13 @@ int ModelClass::GetIndexCount()
 {
 	return m_indexCount;
 }
+
+#ifdef _TEXTURE_SHADER_MODE_
+ID3D11ShaderResourceView* ModelClass::GetTexture()
+{
+	return m_Texture->GetTexture();
+}
+#endif
 
 bool ModelClass::InitializeBuffers(ID3D11Device *device)
 {
@@ -70,15 +92,28 @@ bool ModelClass::InitializeBuffers(ID3D11Device *device)
 	if (!indices)
 		return false;
 
+#ifdef _COLOR_SHADER_MODE_
 	vertices[0].position = XMFLOAT3{ -1.0f, -1.0f, 0.0f }; // bottom left.
 	vertices[0].color = XMFLOAT4{ 0.0f, 1.0f, 0.0f, 1.0f };
 
 	vertices[1].position = XMFLOAT3{ 0.0f, 1.0f, 0.0f }; // top middle.
-	vertices[1].color = XMFLOAT4{ 0.0f, 1.0f, 0.0f, 1.0f };
+	vertices[1].color = XMFLOAT4{ 1.0f, 0.0f, 0.0f, 1.0f };
 
 	vertices[2].position = XMFLOAT3{ 1.0f, -1.0f, 0.0f }; // bottom right.
-	vertices[2].color = XMFLOAT4{ 0.0f, 1.0f, 0.0f, 1.0f };
-	
+	vertices[2].color = XMFLOAT4{ 0.0f, 0.0f, 1.0f, 1.0f };
+#endif
+
+#ifdef _TEXTURE_SHADER_MODE_
+	vertices[0].position = XMFLOAT3{ -1.0f, -1.0f, 0.0f }; // bottom left.
+	vertices[0].texture = XMFLOAT2{ 0.0f, 1.0f };
+
+	vertices[1].position = XMFLOAT3{ 0.0f, 1.0f, 0.0f }; // top middle.
+	vertices[1].texture = XMFLOAT2{ 0.5f, 0.0f };
+
+	vertices[2].position = XMFLOAT3{ 1.0f, -1.0f, 0.0f }; // bottom right.
+	vertices[2].texture = XMFLOAT2{ 1.0f, 1.0f };
+#endif
+
 	indices[0] = 0; // bottom left.
 	indices[1] = 1; // top middle.
 	indices[2] = 2; // bottom right.
@@ -101,7 +136,7 @@ bool ModelClass::InitializeBuffers(ID3D11Device *device)
 	if (FAILED(result))
 		return false;
 
-	// Set up the description of the static incex buffer.
+	// Set up the description of the static index buffer.
 	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 	indexBufferDesc.ByteWidth = sizeof(unsigned long) * m_indexCount;
 	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
@@ -165,3 +200,34 @@ void ModelClass::RenderBuffers(ID3D11DeviceContext *deviceContext)
 
 	return;
 }
+
+#ifdef _TEXTURE_SHADER_MODE_
+bool ModelClass::LoadTexture(ID3D11Device *device, ID3D11DeviceContext *deviceContext, char *filename)
+{
+	bool result;
+
+	m_Texture = new TextureClass;
+
+	if (!m_Texture)
+		return false;
+
+	result = m_Texture->Initialize(device, deviceContext, filename);
+
+	if (!result)
+		return false;
+
+	return true;
+}
+
+void ModelClass::ReleaseTexture()
+{
+	if (m_Texture)
+	{
+		m_Texture->Shutdown();
+		delete m_Texture;
+		m_Texture = NULL;
+	}
+
+	return;
+}
+#endif
